@@ -1,0 +1,1052 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Happy Birthday My Fiancée ❤️</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <!-- Google Fonts: Playfair Display, Poppins, and Cairo (for Arabic support) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Poppins"', '"Cairo"', 'sans-serif'],
+            arabic: ['"Cairo"', 'sans-serif'],
+          },
+          colors: {
+            velvet: '#1c0b19',
+            velvetLight: '#2e1229',
+            roseGold: '#e09f9c',
+            blush: '#fce7f3',
+            champagne: '#fdf6ec',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom romantic animations & textures */
+    body {
+      background: radial-gradient(circle at top, #36132f 0%, #1c0b19 60%, #11050f 100%);
+      color: #fdf6ec;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Floating particles animation */
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.6) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.7; }
+      80% { opacity: 0.7; }
+      100% { transform: translateY(-15vh) scale(1.2) rotate(360deg); opacity: 0; }
+    }
+
+    .floating-heart {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1;
+      animation: floatUp linear infinite;
+    }
+
+    /* Gift Box 3D / Bounce & Wiggle */
+    @keyframes giftFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-10px) rotate(-2deg); }
+      50% { transform: translateY(-4px) rotate(0deg); }
+      75% { transform: translateY(-12px) rotate(2deg); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 25px rgba(244, 114, 182, 0.4), 0 0 60px rgba(224, 159, 156, 0.2); }
+      50% { box-shadow: 0 0 45px rgba(244, 114, 182, 0.8), 0 0 90px rgba(224, 159, 156, 0.5); }
+    }
+
+    .gift-container {
+      animation: giftFloat 3.2s ease-in-out infinite;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .gift-container:active {
+      transform: scale(0.92);
+    }
+
+    .gift-lid {
+      transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+      transform-origin: center bottom;
+    }
+
+    .gift-opened .gift-lid {
+      transform: translateY(-110px) rotate(-18deg) scale(1.08);
+      opacity: 0;
+    }
+
+    .gift-opened .gift-box-body {
+      transform: scale(1.15);
+      opacity: 0;
+      transition: transform 0.6s ease 0.15s, opacity 0.5s ease 0.2s;
+    }
+
+    /* Glassmorphism Cards */
+    .glass-card {
+      background: rgba(46, 18, 41, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(224, 159, 156, 0.28);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Voucher Ticket Perforated Edges */
+    .voucher-card {
+      background: linear-gradient(135deg, rgba(61, 22, 54, 0.88) 0%, rgba(36, 12, 31, 0.94) 100%);
+      border: 1.5px solid rgba(244, 184, 180, 0.35);
+      position: relative;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .voucher-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px rgba(224, 159, 156, 0.22);
+    }
+
+    /* Editable field highlight in Customize Mode */
+    .customize-active [contenteditable="true"] {
+      outline: 1.5px dashed #f472b6;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 4px 8px;
+      transition: all 0.2s ease;
+    }
+
+    .customize-active [contenteditable="true"]:focus {
+      outline: 2px solid #fb7185;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    /* Equalizer bars animation */
+    @keyframes eqBar {
+      0%, 100% { height: 4px; }
+      50% { height: 16px; }
+    }
+    .eq-playing span:nth-child(1) { animation: eqBar 0.6s ease-in-out infinite; }
+    .eq-playing span:nth-child(2) { animation: eqBar 0.8s ease-in-out infinite 0.15s; }
+    .eq-playing span:nth-child(3) { animation: eqBar 0.5s ease-in-out infinite 0.3s; }
+    .eq-playing span:nth-child(4) { animation: eqBar 0.75s ease-in-out infinite 0.1s; }
+
+    /* Smooth fade-in transitions */
+    .fade-in-up {
+      animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Stamp effect for redeemed vouchers */
+    @keyframes stampIn {
+      0% { transform: scale(2.4) rotate(-25deg); opacity: 0; }
+      70% { transform: scale(0.92) rotate(-10deg); opacity: 1; }
+      100% { transform: scale(1) rotate(-12deg); opacity: 1; }
+    }
+    .redeemed-stamp {
+      animation: stampIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans antialiased selection:bg-pink-500 selection:text-white">
+
+  <!-- Ambient Floating Hearts Background -->
+  <div id="particles-container" aria-hidden="true"></div>
+
+  <!-- Toast Notification Banner -->
+  <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300 transform -translate-y-3">
+    <div class="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-5 py-2.5 rounded-full shadow-2xl font-medium text-sm flex items-center gap-2 border border-pink-200/40">
+      <span id="toast-icon">✨</span>
+      <span id="toast-message">Link copied to clipboard!</span>
+    </div>
+  </div>
+
+  <!-- Top Floating Controls Bar -->
+  <header class="fixed top-0 left-0 right-0 z-40 px-4 py-3 flex items-center justify-between pointer-events-none">
+    <!-- Left: Music Player Pill ('البكلة' / El Bakla) -->
+    <div class="pointer-events-auto glass-card rounded-full px-3 py-1.5 flex items-center gap-2.5 shadow-lg max-w-[235px] sm:max-w-xs">
+      <button id="music-toggle-btn" onclick="toggleMusic()" class="w-9 h-9 rounded-full bg-gradient-to-tr from-pink-500 to-amber-400 text-white flex items-center justify-center shadow-md active:scale-90 transition shrink-0" aria-label="Play or Pause Music">
+        <svg id="icon-play" class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="icon-pause" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      
+      <div class="overflow-hidden">
+        <div class="flex items-center gap-1.5">
+          <span class="text-xs font-bold text-pink-200 truncate font-arabic" id="song-title-display">البكلة • El Bakla</span>
+          <div id="eq-bars" class="flex items-end gap-0.5 h-3.5 shrink-0">
+            <span class="w-0.5 h-1 bg-pink-400 rounded-full"></span>
+            <span class="w-0.5 h-2 bg-amber-300 rounded-full"></span>
+            <span class="w-0.5 h-1.5 bg-pink-400 rounded-full"></span>
+            <span class="w-0.5 h-1 bg-amber-300 rounded-full"></span>
+          </div>
+        </div>
+        <p class="text-[10px] text-pink-200/75 truncate" id="song-subtitle-display">Romantic Full Melody</p>
+      </div>
+    </div>
+
+    <!-- Right: Personalize / Customize Mode Toggle -->
+    <div class="pointer-events-auto flex items-center gap-2">
+      <button id="customize-toggle-btn" onclick="toggleCustomizeMode()" class="glass-card hover:bg-pink-500/25 text-pink-100 px-3.5 py-2 rounded-full text-xs sm:text-sm font-medium flex items-center gap-1.5 shadow-lg border border-pink-300/30 active:scale-95 transition">
+        <svg class="w-4 h-4 text-pink-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+        </svg>
+        <span id="customize-btn-label">Personalize</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hidden HTML5 Audio Element for Custom 'البكلة' MP3 Upload/Link -->
+  <audio id="custom-audio-player" loop preload="auto"></audio>
+
+  <!-- ========================================================= -->
+  <!-- SCREEN 1: TOUCH THE GIFT BOX (LANDING SPLASH SCREEN)      -->
+  <!-- ========================================================= -->
+  <section id="gift-screen" class="min-h-screen flex flex-col items-center justify-center px-6 text-center relative z-10 transition-opacity duration-700">
+    <div class="max-w-md w-full flex flex-col items-center">
+      <!-- Romantic Pre-header -->
+      <span class="inline-block px-4 py-1 rounded-full bg-pink-500/20 border border-pink-300/30 text-pink-200 text-xs tracking-widest uppercase mb-4">
+        A Special Surprise For You
+      </span>
+      
+      <h1 class="font-serif text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-amber-100 to-rose-300 mb-2 leading-tight">
+        Happy Birthday, <span id="splash-name">My Love</span> ✨
+      </h1>
+      
+      <p class="text-pink-100/80 text-sm sm:text-base mb-10 max-w-xs">
+        I made something special just for my future wife. Tap your birthday gift box below to open it!
+      </p>
+
+      <!-- Interactive 3D-Styled SVG Gift Box -->
+      <div id="gift-box-wrapper" onclick="openGiftBox()" class="gift-container relative w-56 h-56 sm:w-64 sm:h-64 flex items-center justify-center rounded-full" style="animation: giftFloat 3.2s ease-in-out infinite, pulseGlow 2.8s infinite;">
+        <svg viewBox="0 0 240 240" class="w-full h-full drop-shadow-2xl overflow-visible">
+          <defs>
+            <linearGradient id="boxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f43f5e" />
+              <stop offset="55%" stop-color="#be185d" />
+              <stop offset="100%" stop-color="#831843" />
+            </linearGradient>
+            <linearGradient id="lidGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fb7185" />
+              <stop offset="100%" stop-color="#e11d48" />
+            </linearGradient>
+            <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fef08a" />
+              <stop offset="50%" stop-color="#f59e0b" />
+              <stop offset="100%" stop-color="#d97706" />
+            </linearGradient>
+          </defs>
+
+          <!-- Soft Ground Shadow -->
+          <ellipse cx="120" cy="212" rx="75" ry="12" fill="rgba(0,0,0,0.45)" />
+
+          <!-- Gift Box Base -->
+          <g class="gift-box-body">
+            <rect x="45" y="102" width="150" height="102" rx="14" fill="url(#boxGrad)" stroke="#fda4af" stroke-width="1.5" />
+            <!-- Subtle Shading on Right Side -->
+            <path d="M120 102 H181 A14 14 0 0 1 195 116 V190 A14 14 0 0 1 181 204 H120 Z" fill="rgba(0,0,0,0.14)" />
+            <!-- Vertical Gold Ribbon -->
+            <rect x="106" y="102" width="28" height="102" fill="url(#ribbonGrad)" />
+            <!-- Horizontal Gold Ribbon -->
+            <rect x="45" y="142" width="150" height="22" fill="url(#ribbonGrad)" opacity="0.92" />
+          </g>
+
+          <!-- Gift Box Lid & Bow (Animates upward when tapped) -->
+          <g class="gift-lid">
+            <!-- Left & Right Ribbon Loops -->
+            <path d="M120 74 C92 34, 48 48, 72 76 C84 88, 108 82, 120 76 Z" fill="url(#ribbonGrad)" stroke="#fef9c3" stroke-width="1"/>
+            <path d="M120 74 C148 34, 192 48, 168 76 C156 88, 132 82, 120 76 Z" fill="url(#ribbonGrad)" stroke="#fef9c3" stroke-width="1"/>
+            <!-- Ribbon Tails -->
+            <path d="M112 76 L88 102 L102 104 L118 82 Z" fill="#d97706" />
+            <path d="M128 76 L152 102 L138 104 L122 82 Z" fill="#d97706" />
+            <!-- Center Knot -->
+            <circle cx="120" cy="74" r="11" fill="#fef08a" stroke="#d97706" stroke-width="2" />
+            <!-- Lid Box -->
+            <rect x="37" y="74" width="166" height="32" rx="10" fill="url(#lidGrad)" stroke="#fecdd3" stroke-width="1.5" />
+            <!-- Lid Vertical Ribbon -->
+            <rect x="106" y="74" width="28" height="32" fill="url(#ribbonGrad)" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Tap Instruction Pill -->
+      <button onclick="openGiftBox()" class="mt-9 px-7 py-3.5 rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 text-white font-semibold text-sm sm:text-base shadow-xl shadow-pink-600/30 active:scale-95 transition flex items-center gap-2 animate-bounce">
+        <span>🎁 Tap to Open Your Gift</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- SCREEN 2: MAIN BIRTHDAY WISH, PHOTO & 3 VOUCHERS          -->
+  <!-- ========================================================= -->
+  <main id="main-experience" class="hidden pt-20 pb-28 px-4 sm:px-6 max-w-xl mx-auto relative z-10">
+
+    <!-- Customize Mode Banner (Only visible when Personalize is active) -->
+    <div id="customize-banner" class="hidden mb-6 glass-card rounded-2xl p-4 border-pink-400/60 bg-pink-950/60">
+      <div class="flex items-start justify-between gap-3 mb-3">
+        <div>
+          <h3 class="text-sm font-bold text-pink-200 flex items-center gap-1.5">
+            <span>✏️ Personalize Your Gift</span>
+          </h3>
+          <p class="text-xs text-pink-100/80 mt-0.5">
+            Tap any text below to edit it, upload your photos, or attach the full <strong>البكلة</strong> MP3 song, then copy your unique link!
+          </p>
+        </div>
+      </div>
+
+      <!-- Custom Song Upload / Link for البكلة -->
+      <div class="bg-black/25 rounded-xl p-3 mb-3 border border-pink-300/20">
+        <label class="block text-xs font-semibold text-amber-200 mb-1.5 font-arabic">
+          🎵 Song Audio: البكلة (El Bakla)
+        </label>
+        <div class="flex flex-wrap items-center gap-2">
+          <label class="cursor-pointer bg-pink-500/30 hover:bg-pink-500/40 text-pink-100 text-xs px-3 py-2 rounded-lg border border-pink-300/30 transition flex items-center gap-1.5">
+            <span>📁 Upload MP3 / Audio</span>
+            <input type="file" accept="audio/*" onchange="handleSongUpload(event)" class="hidden" />
+          </label>
+          <span id="audio-status-label" class="text-[11px] text-pink-200/75">Using built-in full romantic melody</span>
+        </div>
+      </div>
+
+      <!-- Copy Personalized Link CTA -->
+      <button onclick="copyPersonalizedLink()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-pink-500 to-rose-500 text-white font-bold text-sm shadow-lg active:scale-98 transition flex items-center justify-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+        </svg>
+        <span>Copy Personalized Gift Link</span>
+      </button>
+    </div>
+
+    <!-- 1. HERO BIRTHDAY MESSAGE & COUPLE PHOTO CARD -->
+    <article class="glass-card rounded-3xl p-6 sm:p-8 mb-8 text-center relative overflow-hidden">
+      <!-- Decorative Corner Sparkles -->
+      <div class="absolute -top-10 -right-10 w-32 h-32 bg-pink-500/20 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-amber-400/20 rounded-full blur-2xl pointer-events-none"></div>
+
+      <span class="inline-block px-3.5 py-1 rounded-full bg-rose-500/25 border border-rose-300/30 text-rose-200 text-xs font-medium tracking-wider uppercase mb-3">
+        Happy Birthday To My Fiancée
+      </span>
+
+      <h2 id="recipient-name" contenteditable="false" data-field="recipientName" class="font-serif text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-pink-200 to-rose-300 mb-5">
+        My Beautiful Fiancée ❤️
+      </h2>
+
+      <!-- Framed Photo Upload Area -->
+      <div class="relative mx-auto w-56 h-56 sm:w-64 sm:h-64 mb-6 rounded-2xl p-1.5 bg-gradient-to-tr from-amber-300 via-pink-400 to-rose-500 shadow-2xl group">
+        <div class="w-full h-full rounded-xl overflow-hidden bg-velvet relative flex items-center justify-center">
+          <img id="main-photo-img" src="" alt="Couple Photo" class="w-full h-full object-cover hidden" />
+          
+          <!-- Romantic Default SVG Illustration if no photo uploaded yet -->
+          <div id="main-photo-placeholder" class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-[#3d1636] to-[#230b1e] p-4 text-center">
+            <svg class="w-20 h-20 text-pink-300/80 mb-2" viewBox="0 0 100 100" fill="none">
+              <path d="M50 84C50 84 14 61 14 35C14 23 23 14 34 14C41 14 47 18 50 24C53 18 59 14 66 14C77 14 86 23 86 35C86 61 50 84 50 84Z" fill="url(#heartPlaceholder)" stroke="#fbcfe8" stroke-width="2"/>
+              <defs>
+                <linearGradient id="heartPlaceholder" x1="14" y1="14" x2="86" y2="84" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#f472b6"/>
+                  <stop offset="1" stop-color="#fb7185"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="text-xs text-pink-200/80 font-medium">Our Favorite Memory</span>
+            <span class="text-[10px] text-pink-200/50 mt-0.5">Tap Personalize to add photo</span>
+          </div>
+
+          <!-- Photo Upload Trigger Overlay -->
+          <label id="main-photo-upload-btn" class="hidden cursor-pointer absolute inset-0 bg-black/55 hover:bg-black/65 flex flex-col items-center justify-center text-white transition">
+            <span class="text-2xl mb-1">📸</span>
+            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-pink-500/80">Upload Couple Photo</span>
+            <input type="file" accept="image/*" onchange="handleImageUpload(event, 'mainPhoto')" class="hidden" />
+          </label>
+        </div>
+      </div>
+
+      <!-- Heartfelt Birthday Message -->
+      <div class="relative">
+        <p id="birthday-message" contenteditable="false" data-field="birthdayMessage" class="text-pink-50/95 text-sm sm:text-base leading-relaxed font-normal whitespace-pre-line">
+          Happy Birthday to the love of my life and my future wife! Every day with you feels like a celebration, and I cannot wait for all the birthdays we will spend together forever. You make my world brighter, warmer, and infinitely happier. I love you endlessly! ❤️✨
+        </p>
+      </div>
+
+      <!-- Signature -->
+      <div class="mt-5 pt-4 border-t border-pink-300/15 flex items-center justify-center gap-2 text-amber-200 font-serif italic text-base">
+        <span>Forever yours,</span>
+        <span id="sender-name" contenteditable="false" data-field="senderName" class="font-semibold not-italic text-pink-200">Your Fiancé</span>
+      </div>
+    </article>
+
+    <!-- 2. THREE INTERACTIVE BIRTHDAY GIFT VOUCHERS SECTION -->
+    <section aria-label="Birthday Gift Vouchers">
+      <div class="text-center mb-6">
+        <span class="text-xs uppercase tracking-widest text-amber-300 font-semibold">Redeemable Anytime</span>
+        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-white mt-1">Your 3 Birthday Gift Vouchers 🎟️</h3>
+        <p class="text-xs sm:text-sm text-pink-200/75 mt-1">
+          Tap any voucher to redeem it, or customize them with your own photos and notes!
+        </p>
+      </div>
+
+      <div id="vouchers-list" class="space-y-5">
+        <!-- Vouchers will be dynamically rendered here by JS so both viewing & editing stay 100% synced -->
+      </div>
+    </section>
+
+    <!-- Bottom Share & Confetti Celebration Bar -->
+    <div class="mt-10 text-center space-y-3">
+      <button onclick="triggerCelebrationConfetti()" class="px-6 py-3 rounded-full glass-card hover:bg-pink-500/20 text-pink-100 text-sm font-medium border border-pink-300/30 active:scale-95 transition inline-flex items-center gap-2">
+        <span>🎉 Celebrate With More Confetti</span>
+      </button>
+
+      <div>
+        <button onclick="copyPersonalizedLink()" class="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white text-sm font-semibold shadow-lg shadow-pink-600/30 active:scale-95 transition inline-flex items-center gap-2">
+          <span>🔗 Copy Personalized Link to Share</span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    /* ==========================================================================
+       1. STATE MANAGEMENT & DEFAULT ROMANTIC DATA
+       ========================================================================== */
+    const DEFAULT_STATE = {
+      recipientName: "My Beautiful Fiancée ❤️",
+      senderName: "Your Fiancé",
+      birthdayMessage: "Happy Birthday to the love of my life and my future wife! Every day with you feels like a celebration, and I cannot wait for all the birthdays we will spend together forever. You make my world brighter, warmer, and infinitely happier. I love you endlessly! ❤️✨",
+      mainPhoto: "",
+      vouchers: [
+        {
+          id: 0,
+          badge: "VOUCHER #1",
+          title: "Romantic Candlelight Dinner 🕯️",
+          description: "One unforgettable evening at your favorite restaurant—dressed up, zero worries, and dessert on me.",
+          note: "Valid any night you choose!",
+          photo: "",
+          redeemed: false
+        },
+        {
+          id: 1,
+          badge: "VOUCHER #2",
+          title: "Luxury Spa & Pamper Day 💆‍♀️",
+          description: "A full day dedicated to relaxing, recharging, and treating the future bride like royalty.",
+          note: "Includes massage & your favorite treats.",
+          photo: "",
+          redeemed: false
+        },
+        {
+          id: 2,
+          badge: "VOUCHER #3",
+          title: "Dream Shopping Spree & Date 🛍️",
+          description: "Pick out anything your heart desires, followed by coffee, sunset views, and endless photos together.",
+          note: "No budget complaints allowed!",
+          photo: "",
+          redeemed: false
+        }
+      ]
+    };
+
+    let appState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    let isCustomizeMode = false;
+    let isGiftOpened = false;
+
+    /* ==========================================================================
+       2. INITIALIZATION & URL HASH DESERIALIZATION (SHAREABLE LINK SUPPORT)
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      createFloatingParticles();
+      loadStateFromURL();
+      renderAll();
+    });
+
+    function loadStateFromURL() {
+      try {
+        const hash = window.location.hash;
+        if (hash && hash.startsWith('#gift=')) {
+          const encoded = hash.slice(6);
+          const jsonStr = decodeURIComponent(escape(atob(encoded)));
+          const parsed = JSON.parse(jsonStr);
+          if (parsed && typeof parsed === 'object') {
+            appState = {
+              ...DEFAULT_STATE,
+              ...parsed,
+              vouchers: Array.isArray(parsed.vouchers) ? parsed.vouchers : DEFAULT_STATE.vouchers
+            };
+          }
+        }
+      } catch (err) {
+        console.warn("Could not parse personalized gift link data, using defaults:", err);
+      }
+    }
+
+    function renderAll() {
+      // Update Splash Screen Name
+      const cleanName = appState.recipientName.replace(/❤️/g, '').trim() || "My Love";
+      document.getElementById('splash-name').textContent = cleanName;
+
+      // Update Main Message Card
+      document.getElementById('recipient-name').textContent = appState.recipientName;
+      document.getElementById('birthday-message').textContent = appState.birthdayMessage;
+      document.getElementById('sender-name').textContent = appState.senderName;
+
+      // Update Main Photo
+      const mainImg = document.getElementById('main-photo-img');
+      const mainPlaceholder = document.getElementById('main-photo-placeholder');
+      if (appState.mainPhoto) {
+        mainImg.src = appState.mainPhoto;
+        mainImg.classList.remove('hidden');
+        mainPlaceholder.classList.add('hidden');
+      } else {
+        mainImg.classList.add('hidden');
+        mainPlaceholder.classList.remove('hidden');
+      }
+
+      // Render 3 Vouchers
+      renderVouchers();
+      applyCustomizeVisibility();
+    }
+
+    /* ==========================================================================
+       3. RENDER 3 INTERACTIVE VOUCHERS (WITH PHOTO UPLOAD & EDITABLE TEXT)
+       ========================================================================== */
+    function renderVouchers() {
+      const container = document.getElementById('vouchers-list');
+      container.innerHTML = '';
+
+      appState.vouchers.forEach((v, idx) => {
+        const card = document.createElement('div');
+        card.className = 'voucher-card rounded-3xl p-5 shadow-xl overflow-hidden';
+
+        const defaultGradients = [
+          'from-pink-500/30 to-rose-700/40',
+          'from-amber-400/25 to-pink-600/35',
+          'from-purple-500/30 to-rose-600/40'
+        ];
+        const defaultIcons = ['🕯️', '🌸', '✨'];
+
+        card.innerHTML = `
+          <div class="flex flex-col sm:flex-row gap-4 items-center">
+            <!-- Voucher Photo Slot -->
+            <div class="relative w-full sm:w-32 h-36 sm:h-32 rounded-2xl overflow-hidden shrink-0 border border-pink-300/30 bg-gradient-to-br ${defaultGradients[idx % 3]} flex items-center justify-center">
+              ${v.photo 
+                ? `<img src="${v.photo}" alt="Voucher ${idx + 1}" class="w-full h-full object-cover" />`
+                : `<div class="text-center p-2">
+                     <span class="text-3xl block mb-1">${defaultIcons[idx % 3]}</span>
+                     <span class="text-[10px] text-pink-100/75 uppercase tracking-wider font-semibold">${v.badge}</span>
+                   </div>`
+              }
+              
+              <!-- Photo Upload Overlay (Shown in Customize Mode) -->
+              <label class="voucher-upload-overlay ${isCustomizeMode ? 'flex' : 'hidden'} cursor-pointer absolute inset-0 bg-black/60 hover:bg-black/70 flex-col items-center justify-center text-white text-center p-2 transition">
+                <span class="text-xl mb-0.5">📷</span>
+                <span class="text-[11px] font-semibold leading-tight">Add Photo</span>
+                <input type="file" accept="image/*" onchange="handleVoucherPhotoUpload(event, ${idx})" class="hidden" />
+              </label>
+            </div>
+
+            <!-- Voucher Text & Redeem Controls -->
+            <div class="flex-1 w-full text-left">
+              <div class="flex items-center justify-between gap-2 mb-1">
+                <span class="text-[11px] font-bold tracking-widest uppercase text-amber-300">${v.badge}</span>
+                ${v.redeemed 
+                  ? `<span class="redeemed-stamp inline-block px-2.5 py-0.5 rounded-full bg-emerald-500/25 border border-emerald-400 text-emerald-200 text-[11px] font-bold">REDEEMED ❤️</span>`
+                  : `<span class="text-[11px] text-pink-200/60">Valid Forever</span>`
+                }
+              </div>
+
+              <h4 contenteditable="${isCustomizeMode}" 
+                  oninput="updateVoucherField(${idx}, 'title', this.innerText)"
+                  class="font-serif text-lg sm:text-xl font-bold text-white mb-1.5 leading-snug">
+                ${escapeHtml(v.title)}
+              </h4>
+
+              <p contenteditable="${isCustomizeMode}" 
+                 oninput="updateVoucherField(${idx}, 'description', this.innerText)"
+                 class="text-xs sm:text-sm text-pink-100/85 leading-relaxed mb-2">
+                ${escapeHtml(v.description)}
+              </p>
+
+              <!-- Personal Note inside Voucher -->
+              <div class="bg-black/25 rounded-xl px-3 py-1.5 border border-pink-300/15 mb-3 flex items-center gap-1.5">
+                <span class="text-xs">💌</span>
+                <span contenteditable="${isCustomizeMode}" 
+                      oninput="updateVoucherField(${idx}, 'note', this.innerText)"
+                      class="text-xs text-amber-200/90 italic w-full block">
+                  ${escapeHtml(v.note)}
+                </span>
+              </div>
+
+              <!-- Redeem Button -->
+              <button onclick="redeemVoucher(${idx})" 
+                class="w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-semibold transition active:scale-95 flex items-center justify-center gap-1.5 ${
+                  v.redeemed 
+                    ? 'bg-emerald-600/30 text-emerald-200 border border-emerald-400/40' 
+                    : 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-md shadow-pink-600/25 hover:brightness-110'
+                }">
+                <span>${v.redeemed ? '✨ Voucher Claimed! (Tap to Undo)' : '🎟️ Redeem This Gift Voucher'}</span>
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    /* ==========================================================================
+       4. GIFT OPENING ANIMATION & CONFETTI CELEBRATION
+       ========================================================================== */
+    function openGiftBox() {
+      if (isGiftOpened) return;
+      isGiftOpened = true;
+
+      const wrapper = document.getElementById('gift-box-wrapper');
+      wrapper.classList.add('gift-opened');
+
+      // Start playing 'البكلة' full romantic melody automatically on user touch
+      startMusic();
+
+      // Multi-burst celebratory confetti
+      triggerCelebrationConfetti();
+
+      // Transition smoothly to the message & vouchers screen
+      setTimeout(() => {
+        const giftScreen = document.getElementById('gift-screen');
+        const mainExp = document.getElementById('main-experience');
+
+        giftScreen.style.opacity = '0';
+        setTimeout(() => {
+          giftScreen.classList.add('hidden');
+          mainExp.classList.remove('hidden');
+          mainExp.classList.add('fade-in-up');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 450);
+      }, 650);
+    }
+
+    function triggerCelebrationConfetti() {
+      if (typeof confetti !== 'function') return;
+
+      const colors = ['#f43f5e', '#fb7185', '#f59e0b', '#fef08a', '#ec4899', '#ffffff'];
+
+      // Center burst
+      confetti({
+        particleCount: 85,
+        spread: 75,
+        origin: { y: 0.6 },
+        colors: colors
+      });
+
+      // Side cannons
+      setTimeout(() => {
+        confetti({
+          particleCount: 45,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0, y: 0.65 },
+          colors: colors
+        });
+        confetti({
+          particleCount: 45,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1, y: 0.65 },
+          colors: colors
+        });
+      }, 220);
+    }
+
+    function redeemVoucher(index) {
+      appState.vouchers[index].redeemed = !appState.vouchers[index].redeemed;
+      renderVouchers();
+      if (appState.vouchers[index].redeemed) {
+        triggerCelebrationConfetti();
+        showToast("💖", `Voucher #${index + 1} Redeemed!`);
+      }
+    }
+
+    /* ==========================================================================
+       5. PERSONALIZE / CUSTOMIZE MODE & IMAGE COMPRESSION FOR URL SHARING
+       ========================================================================== */
+    function toggleCustomizeMode() {
+      // If user clicks Personalize while still on the gift box screen, open the gift first
+      if (!isGiftOpened) {
+        openGiftBox();
+      }
+
+      isCustomizeMode = !isCustomizeMode;
+      applyCustomizeVisibility();
+
+      if (isCustomizeMode) {
+        showToast("✏️", "Customize Mode ON — Tap text or photos to edit");
+      } else {
+        syncEditableTextToState();
+        showToast("✅", "Changes saved!");
+      }
+    }
+
+    function applyCustomizeVisibility() {
+      const body = document.body;
+      const banner = document.getElementById('customize-banner');
+      const label = document.getElementById('customize-btn-label');
+      const mainPhotoBtn = document.getElementById('main-photo-upload-btn');
+
+      const editableIds = ['recipient-name', 'birthday-message', 'sender-name'];
+
+      if (isCustomizeMode) {
+        body.classList.add('customize-active');
+        banner.classList.remove('hidden');
+        label.textContent = 'Done';
+        mainPhotoBtn.classList.remove('hidden');
+        editableIds.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.setAttribute('contenteditable', 'true');
+        });
+      } else {
+        body.classList.remove('customize-active');
+        banner.classList.add('hidden');
+        label.textContent = 'Personalize';
+        mainPhotoBtn.classList.add('hidden');
+        editableIds.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.setAttribute('contenteditable', 'false');
+        });
+      }
+
+      renderVouchers();
+    }
+
+    function syncEditableTextToState() {
+      appState.recipientName = document.getElementById('recipient-name').innerText.trim() || DEFAULT_STATE.recipientName;
+      appState.birthdayMessage = document.getElementById('birthday-message').innerText.trim() || DEFAULT_STATE.birthdayMessage;
+      appState.senderName = document.getElementById('sender-name').innerText.trim() || DEFAULT_STATE.senderName;
+      const cleanName = appState.recipientName.replace(/❤️/g, '').trim() || "My Love";
+      document.getElementById('splash-name').textContent = cleanName;
+    }
+
+    function updateVoucherField(index, field, value) {
+      if (appState.vouchers[index]) {
+        appState.vouchers[index][field] = value;
+      }
+    }
+
+    // Resize & compress uploaded images cleanly so they fit inside a shareable URL hash
+    function compressImageFile(file, maxSize = 260, quality = 0.68) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+              if (width > maxSize) {
+                height = Math.round((height * maxSize) / width);
+                width = maxSize;
+              }
+            } else {
+              if (height > maxSize) {
+                width = Math.round((width * maxSize) / height);
+                height = maxSize;
+              }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handleImageUpload(event, targetKey) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      try {
+        const compressedDataUrl = await compressImageFile(file, 300, 0.72);
+        appState[targetKey] = compressedDataUrl;
+        renderAll();
+        showToast("📸", "Couple photo updated!");
+      } catch (err) {
+        showToast("⚠️", "Could not load image. Try another photo.");
+      }
+    }
+
+    async function handleVoucherPhotoUpload(event, voucherIndex) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      try {
+        const compressedDataUrl = await compressImageFile(file, 220, 0.65);
+        appState.vouchers[voucherIndex].photo = compressedDataUrl;
+        renderVouchers();
+        showToast("📸", `Voucher #${voucherIndex + 1} photo added!`);
+      } catch (err) {
+        showToast("⚠️", "Could not load voucher photo.");
+      }
+    }
+
+    /* ==========================================================================
+       6. COPY PERSONALIZED SHAREABLE LINK TO CLIPBOARD
+       ========================================================================== */
+    function copyPersonalizedLink() {
+      syncEditableTextToState();
+
+      try {
+        const jsonStr = JSON.stringify(appState);
+        const encoded = btoa(unescape(encodeURIComponent(jsonStr)));
+        const baseUrl = window.location.href.split('#')[0];
+        const shareUrl = `${baseUrl}#gift=${encoded}`;
+
+        // Update browser URL hash without reloading
+        window.history.replaceState(null, '', `#gift=${encoded}`);
+
+        // Copy using reliable fallback compatible with mobile & iframes
+        const tempInput = document.createElement('textarea');
+        tempInput.value = shareUrl;
+        tempInput.style.position = 'fixed';
+        tempInput.style.opacity = '0';
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        tempInput.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        showToast("🔗", "Personalized Gift Link Copied!");
+      } catch (err) {
+        console.error("Failed to generate link:", err);
+        showToast("⚠️", "Link generated in address bar!");
+      }
+    }
+
+    /* ==========================================================================
+       7. MUSIC PLAYER ('البكلة' / EL BAKLA) — CUSTOM MP3 + FULL SYNTH ARRANGEMENT
+       ========================================================================== */
+    let isPlaying = false;
+    let usingCustomAudio = false;
+    let audioCtx = null;
+    let synthLoopTimer = null;
+    let stepIndex = 0;
+
+    // Extended romantic Arabic/Oriental Hijaz & Bayati-inspired full melody arrangement
+    // so 'البكلة' plays a rich, continuous full-length musical piece out of the box!
+    const FULL_ROMANTIC_MELODY = [
+      // Intro Phrase
+      { note: 293.66, dur: 0.45 }, { note: 311.13, dur: 0.45 }, { note: 369.99, dur: 0.6 }, { note: 392.00, dur: 0.6 },
+      { note: 440.00, dur: 0.8 },  { note: 392.00, dur: 0.4 },  { note: 369.99, dur: 0.4 }, { note: 311.13, dur: 0.8 },
+      // Verse Theme A
+      { note: 293.66, dur: 0.5 },  { note: 369.99, dur: 0.5 },  { note: 392.00, dur: 0.5 }, { note: 440.00, dur: 0.7 },
+      { note: 466.16, dur: 0.5 },  { note: 440.00, dur: 0.4 },  { note: 392.00, dur: 0.4 }, { note: 369.99, dur: 0.8 },
+      // Verse Theme B
+      { note: 440.00, dur: 0.5 },  { note: 466.16, dur: 0.5 },  { note: 523.25, dur: 0.6 }, { note: 587.33, dur: 0.9 },
+      { note: 523.25, dur: 0.45 }, { note: 466.16, dur: 0.45 }, { note: 440.00, dur: 0.5 }, { note: 392.00, dur: 0.8 },
+      // Chorus / Romantic Lift
+      { note: 587.33, dur: 0.6 },  { note: 523.25, dur: 0.4 },  { note: 466.16, dur: 0.4 }, { note: 440.00, dur: 0.6 },
+      { note: 392.00, dur: 0.5 },  { note: 440.00, dur: 0.5 },  { note: 369.99, dur: 0.6 }, { note: 311.13, dur: 0.5 },
+      { note: 293.66, dur: 1.1 },  { note: 0,      dur: 0.3 }
+    ];
+
+    function handleSongUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const audioEl = document.getElementById('custom-audio-player');
+      const fileUrl = URL.createObjectURL(file);
+      audioEl.src = fileUrl;
+      usingCustomAudio = true;
+
+      // Stop built-in synth if running
+      stopSynthLoop();
+
+      document.getElementById('song-title-display').textContent = `البكلة • ${file.name.replace(/\.[^/.]+$/, "")}`;
+      document.getElementById('song-subtitle-display').textContent = "Full Song Audio Loaded";
+      document.getElementById('audio-status-label').textContent = `Loaded: ${file.name}`;
+
+      startMusic();
+      showToast("🎵", "Full song 'البكلة' loaded & playing!");
+    }
+
+    function toggleMusic() {
+      if (isPlaying) {
+        pauseMusic();
+      } else {
+        startMusic();
+      }
+    }
+
+    function startMusic() {
+      isPlaying = true;
+      updateMusicUI(true);
+
+      if (usingCustomAudio) {
+        const audioEl = document.getElementById('custom-audio-player');
+        audioEl.play().catch(() => {});
+      } else {
+        startSynthLoop();
+      }
+    }
+
+    function pauseMusic() {
+      isPlaying = false;
+      updateMusicUI(false);
+
+      if (usingCustomAudio) {
+        const audioEl = document.getElementById('custom-audio-player');
+        audioEl.pause();
+      }
+      stopSynthLoop();
+    }
+
+    function updateMusicUI(playing) {
+      const iconPlay = document.getElementById('icon-play');
+      const iconPause = document.getElementById('icon-pause');
+      const eqBars = document.getElementById('eq-bars');
+
+      if (playing) {
+        iconPlay.classList.add('hidden');
+        iconPause.classList.remove('hidden');
+        eqBars.classList.add('eq-playing');
+      } else {
+        iconPlay.classList.remove('hidden');
+        iconPause.classList.add('hidden');
+        eqBars.classList.remove('eq-playing');
+      }
+    }
+
+    function startSynthLoop() {
+      if (synthLoopTimer) return;
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      const playNextNote = () => {
+        if (!isPlaying || usingCustomAudio) {
+          synthLoopTimer = null;
+          return;
+        }
+
+        const item = FULL_ROMANTIC_MELODY[stepIndex % FULL_ROMANTIC_MELODY.length];
+        stepIndex++;
+
+        if (item.note > 0 && audioCtx) {
+          playRomanticTone(item.note, item.dur);
+        }
+
+        synthLoopTimer = setTimeout(playNextNote, item.dur * 850);
+      };
+
+      playNextNote();
+    }
+
+    function stopSynthLoop() {
+      if (synthLoopTimer) {
+        clearTimeout(synthLoopTimer);
+        synthLoopTimer = null;
+      }
+    }
+
+    function playRomanticTone(freq, duration) {
+      try {
+        const now = audioCtx.currentTime;
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        // Warm electric-piano / harp-like harmonic blend
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(freq, now);
+
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(freq * 2, now);
+
+        const subGain = audioCtx.createGain();
+        subGain.gain.setValueAtTime(0.035, now);
+
+        gainNode.gain.setValueAtTime(0.001, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.11, now + 0.06);
+        gainNode.gain.exponentialRampToValueAtTime(0.0008, now + duration * 1.15);
+
+        osc1.connect(gainNode);
+        osc2.connect(subGain);
+        subGain.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        osc1.start(now);
+        osc2.start(now);
+        osc1.stop(now + duration * 1.2);
+        osc2.stop(now + duration * 1.2);
+      } catch (e) {
+        // Ignore audio context autoplay restrictions until next user tap
+      }
+    }
+
+    /* ==========================================================================
+       8. AMBIENT FLOATING HEARTS & TOAST HELPER
+       ========================================================================== */
+    function createFloatingParticles() {
+      const container = document.getElementById('particles-container');
+      const symbols = ['❤️', '✨', '💖', '🌸', '💕'];
+      const count = 16;
+
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.className = 'floating-heart text-sm sm:text-base opacity-0';
+        el.textContent = symbols[i % symbols.length];
+        el.style.left = `${Math.random() * 96}%`;
+        el.style.animationDuration = `${9 + Math.random() * 10}s`;
+        el.style.animationDelay = `${Math.random() * 8}s`;
+        container.appendChild(el);
+      }
+    }
+
+    let toastTimeout = null;
+    function showToast(icon, message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-icon').textContent = icon;
+      document.getElementById('toast-message').textContent = message;
+
+      toast.classList.remove('opacity-0', '-translate-y-3');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', '-translate-y-3');
+      }, 2800);
+    }
+  </script>
+</body>
+</html>
